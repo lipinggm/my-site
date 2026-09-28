@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joy G. 的 AI 学习空间</title>
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --surface: #ffffff;
+      --text: #1f2330;
+      --muted: #6b7080;
+      --accent: #5b5bd6;
+      --accent-soft: #ececfd;
+      --border: #e6e6ef;
+      --radius: 16px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111218;
+        --surface: #1a1c24;
+        --text: #eceef4;
+        --muted: #9a9fb0;
+        --accent: #8b8bf5;
+        --accent-soft: #25264a;
+        --border: #2a2d38;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                   "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* 顶部介绍 */
+    header {
+      padding: 96px 0 56px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #c56cf0);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(91, 91, 214, 0.3);
+    }
+
+    h1 {
+      font-size: clamp(28px, 6vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(90deg, var(--accent), #c56cf0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .intro {
+      max-width: 560px;
+      margin: 20px auto 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    /* 卡片区 */
+    section { padding: 24px 0 72px; }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .card .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* 底部联系方式 */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0 40px;
+      text-align: center;
+    }
+
+    footer h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .contacts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      list-style: none;
+    }
+
+    .contacts a {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 15px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .contacts a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .copyright {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* 语言切换按钮 */
+    .lang-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 10;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .lang-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* 手机适配 */
+    @media (max-width: 600px) {
+      header { padding: 64px 0 40px; }
+      .intro { font-size: 16px; }
+      section { padding-bottom: 48px; }
+      .card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <button class="lang-toggle" id="langToggle" type="button">English</button>
+
+  <header>
+    <div class="container">
+      <div class="avatar">J</div>
+      <h1 data-i18n="title">Joy G. 的 <span class="highlight">AI 学习空间</span></h1>
+      <p class="intro" data-i18n="intro">
+        你好，我是 Joy！一个对人工智能充满好奇的学习者。
+        这里记录我探索 AI 的过程——从基础概念到动手实践，
+        希望和你一起在学习中成长。
+      </p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <p class="section-title" data-i18n="learning">我正在学习</p>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">💬</div>
+          <h3 data-i18n="card1Title">提示词工程</h3>
+          <p data-i18n="card1Text">学习如何与大语言模型高效沟通，写出清晰、有结构的提示词，让 AI 真正帮上忙。</p>
+        </div>
+        <div class="card">
+          <div class="icon">🛠️</div>
+          <h3 data-i18n="card2Title">AI 辅助编程</h3>
+          <p data-i18n="card2Text">借助 Claude Code 等工具动手做小项目，比如这个网站，在实践中理解代码。</p>
+        </div>
+        <div class="card">
+          <div class="icon">🧠</div>
+          <h3 data-i18n="card3Title">机器学习基础</h3>
+          <p data-i18n="card3Text">了解模型是如何训练和工作的，搞懂神经网络、数据与算法背后的核心原理。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <h2 data-i18n="contact">联系我</h2>
+      <ul class="contacts">
+        <li><a href="mailto:your-email@example.com" data-i18n="email">📧 邮箱</a></li>
+        <li><a href="https://github.com/" target="_blank" rel="noopener">🐙 GitHub</a></li>
+        <li><a href="#" target="_blank" rel="noopener">💼 LinkedIn</a></li>
+      </ul>
+      <p class="copyright" data-i18n="copyright">© 2026 Joy G. · 保持好奇，持续学习</p>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      zh: {
+        pageTitle: "Joy G. 的 AI 学习空间",
+        toggle: "English",
+        title: 'Joy G. 的 <span class="highlight">AI 学习空间</span>',
+        intro: "你好，我是 Joy！一个对人工智能充满好奇的学习者。这里记录我探索 AI 的过程——从基础概念到动手实践，希望和你一起在学习中成长。",
+        learning: "我正在学习",
+        card1Title: "提示词工程",
+        card1Text: "学习如何与大语言模型高效沟通，写出清晰、有结构的提示词，让 AI 真正帮上忙。",
+        card2Title: "AI 辅助编程",
+        card2Text: "借助 Claude Code 等工具动手做小项目，比如这个网站，在实践中理解代码。",
+        card3Title: "机器学习基础",
+        card3Text: "了解模型是如何训练和工作的，搞懂神经网络、数据与算法背后的核心原理。",
+        contact: "联系我",
+        email: "📧 邮箱",
+        copyright: "© 2026 Joy G. · 保持好奇，持续学习"
+      },
+      en: {
+        pageTitle: "Joy G.'s AI Learning Space",
+        toggle: "中文",
+        title: 'Joy G.\'s <span class="highlight">AI Learning Space</span>',
+        intro: "Hi, I'm Joy — a learner endlessly curious about artificial intelligence. This is where I document my AI journey, from core concepts to hands-on projects. Let's learn and grow together.",
+        learning: "What I'm Learning",
+        card1Title: "Prompt Engineering",
+        card1Text: "Learning to communicate effectively with large language models — writing clear, well-structured prompts that make AI genuinely useful.",
+        card2Title: "AI-Assisted Coding",
+        card2Text: "Building small projects with tools like Claude Code — including this website — and understanding code through practice.",
+        card3Title: "Machine Learning Basics",
+        card3Text: "Understanding how models are trained and how they work: the core ideas behind neural networks, data, and algorithms.",
+        contact: "Get in Touch",
+        email: "📧 Email",
+        copyright: "© 2026 Joy G. · Stay curious, keep learning"
+      }
+    };
+
+    function setLanguage(lang) {
+      const t = translations[lang];
+      document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+      document.title = t.pageTitle;
+      document.getElementById("langToggle").textContent = t.toggle;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        el.innerHTML = t[el.dataset.i18n];
+      });
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+
+    let current;
+    try { current = localStorage.getItem("lang"); } catch (e) {}
+    if (!translations[current]) {
+      current = navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+    }
+    setLanguage(current);
+
+    document.getElementById("langToggle").addEventListener("click", () => {
+      current = current === "zh" ? "en" : "zh";
+      setLanguage(current);
+    });
+  </script>
+</body>
+</html>
